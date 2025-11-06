@@ -25,7 +25,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn"],
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "space-before-function-paren": ["error", "never"]
   },
   "settings": {
     "react": {

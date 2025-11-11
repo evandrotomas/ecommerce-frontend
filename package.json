@@ -18,6 +18,8 @@
     "react-icons": "4.12.0",
     "react-router-dom": "^7.9.5",
     "react-scripts": "5.0.1",
+    "styled-component": "^2.8.0",
+    "styled-components": "^6.1.19",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
@@ -51,6 +53,7 @@
     "@commitlint/config-conventional": "^20.0.0",
     "@types/axios": "^0.14.4",
     "@types/firebase": "^2.4.32",
+    "@types/styled-components": "^5.1.35",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint": "^8.57.1",

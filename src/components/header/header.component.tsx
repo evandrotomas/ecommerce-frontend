@@ -20,6 +20,10 @@ const Header = () => {
 
   const { isAuthenticated } = useContext(UserContext)
 
+  const handleLogoClick = () => {
+    navigate('/')
+  }
+
   const handleExploreClick = () => {
     navigate('/')
   }
@@ -34,7 +38,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <HeaderTitle>CLUB CLOTHING</HeaderTitle>
+      <HeaderTitle onClick={handleLogoClick}>CLUB CLOTHING</HeaderTitle>
 
       <HeaderItems>
         <HeaderItem onClick={handleExploreClick}>Explorar</HeaderItem>

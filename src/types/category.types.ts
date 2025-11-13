@@ -3,6 +3,7 @@ interface Category {
   name: string
   displayName: string
   imageUrl: string
+  products: string
 }
 
 export default Category

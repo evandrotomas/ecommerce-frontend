@@ -1,17 +1,24 @@
+import { signOut } from 'firebase/auth'
 import { BsCart3 } from 'react-icons/bs'
+import { UserContext } from '../../contexts/user.context'
 import { useNavigate } from 'react-router-dom'
 
+// Utilities
+import { auth } from '../../config/firebase.config'
+import { useContext } from 'react'
+
+// Styles
 import {
   HeaderContainer,
   HeaderItem,
   HeaderItems,
   HeaderTitle
 } from './header.styles'
-import { signOut } from 'firebase/auth'
-import { auth } from '../../config/firebase.config'
 
 const Header = () => {
   const navigate = useNavigate()
+
+  const { isAuthenticated } = useContext(UserContext)
 
   const handleExploreClick = () => {
     navigate('/')
@@ -31,9 +38,16 @@ const Header = () => {
 
       <HeaderItems>
         <HeaderItem onClick={handleExploreClick}>Explorar</HeaderItem>
-        <HeaderItem onClick={handleLoginClick}>Login</HeaderItem>
-        <HeaderItem onClick={handleSignUpClick}>Criar conta</HeaderItem>
-        <HeaderItem onClick={() => signOut(auth)}>Sair</HeaderItem>
+        {!isAuthenticated && (
+          <>
+            <HeaderItem onClick={handleLoginClick}>Login</HeaderItem>
+            <HeaderItem onClick={handleSignUpClick}>Criar conta</HeaderItem>
+          </>
+        )}
+
+        {isAuthenticated && (
+          <HeaderItem onClick={() => signOut(auth)}>Sair</HeaderItem>
+        )}
         <HeaderItem>
           <BsCart3 size={25} />
           <p style={{ marginLeft: 5 }}>5</p>

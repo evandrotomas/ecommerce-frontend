@@ -9,6 +9,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup
 } from 'firebase/auth'
+import { UserContext } from '../../contexts/user.context'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Components
 import Header from '../../components/header/header.component'
@@ -40,6 +43,15 @@ const LoginPage = () => {
     setError,
     handleSubmit
   } = useForm<LoginForm>()
+
+  const { isAuthenticated } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
 
   const handleSubmitPress = async (data: LoginForm) => {
     try {

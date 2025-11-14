@@ -25,7 +25,7 @@ const Header = () => {
   }
 
   const handleExploreClick = () => {
-    navigate('/')
+    navigate('/explore')
   }
 
   const handleLoginClick = () => {

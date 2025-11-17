@@ -28,6 +28,24 @@ const CartContextProvider: FunctionComponent<{ children: React.ReactNode }> = ({
   }
 
   const addProductToCart = (product: Product) => {
+    // verificar se o produto já está npo carrinho
+    const productIsAlraedyInCart = products.some(
+      (item) => item.id === product.id
+    )
+
+    // se sim -> aumentar sua quantidade
+    if (productIsAlraedyInCart) {
+      return setProducts((products) =>
+        products.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      )
+    }
+
+    // se não -> adicionar
+
     setProducts((prevState) => [...prevState, { ...product, quantity: 1 }])
   }
 

@@ -19,10 +19,11 @@ interface CartItemProp {
 }
 
 const CartItem: FunctionComponent<CartItemProp> = ({ product }) => {
-  const { removeProductFromCart, addProductToCart } = useContext(CartContext)
+  const { removeProductFromCart, increaseProductQuantity } =
+    useContext(CartContext)
 
   const handleAddClick = () => {
-    addProductToCart(product)
+    increaseProductQuantity(product.id)
   }
 
   const handleRemoveClick = () => {

@@ -39,7 +39,7 @@ const CartItem: FunctionComponent<CartItemProp> = ({ product }) => {
 
   return (
     <CartItemContainer>
-      <CartItemImage imageUrl={product.imageUrl} />
+      <CartItemImage $imageUrl={product.imageUrl} />
 
       <CartItemInfo>
         <p>{product.name}</p>

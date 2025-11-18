@@ -18,7 +18,7 @@ import {
 } from './cart.styles'
 
 const Cart: FunctionComponent = () => {
-  const { isVisible, toggleCart, products, productsTotalPrice } =
+  const { isVisible, toggleCart, products, productsTotalPrice, productsCount } =
     useContext(CartContext)
   return (
     <CartContainer $isVisible={isVisible}>
@@ -31,10 +31,21 @@ const Cart: FunctionComponent = () => {
           <CartItem key={product.id} product={product} />
         ))}
 
-        <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
-        <CustomButton startIcon={<BsCartCheck />}>
-          Ir para Checkout
-        </CustomButton>
+        {productsCount > 0 && (
+          <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
+        )}
+
+        {productsCount > 0 && (
+          <CustomButton startIcon={<BsCartCheck />}>
+            Ir para Checkout
+          </CustomButton>
+        )}
+
+        {productsCount === 0 && (
+          <p style={{ textAlign: 'center', marginTop: '50px' }}>
+            Seu carrinho está vázio!
+          </p>
+        )}
       </CartContent>
     </CartContainer>
   )

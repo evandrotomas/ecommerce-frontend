@@ -21,6 +21,7 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "multiline-ternary": "off",
     // "@typescript-eslint/no-explicit-any": "warn",
     // "@typescript-eslint/explicit-module-boundary-types": "off",
     // "no-unused-vars": "off",

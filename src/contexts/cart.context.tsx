@@ -1,5 +1,12 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, FunctionComponent, useMemo, useState } from 'react'
+import {
+  createContext,
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import CartProduct from '../types/cart.typs'
 import Product from '../types/product.types'
 
@@ -31,7 +38,34 @@ const CartContextProvider: FunctionComponent<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [isVisible, setIsVisible] = useState(false)
-  const [products, setProducts] = useState<CartProduct[]>([])
+  const [products, setProducts] = useState<CartProduct[]>(() => {
+    try {
+      const data = localStorage.getItem('cartProducts')
+      const parsed = data ? JSON.parse(data) : []
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    const data = localStorage.getItem('cartProducts')
+
+    if (!data) return // nada salvo → mantém []
+
+    try {
+      const parsed = JSON.parse(data)
+      if (Array.isArray(parsed)) {
+        setProducts(parsed)
+      }
+    } catch {
+      console.error('Erro ao ler carrinho do localStorage')
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('cartProducts', JSON.stringify(products))
+  }, [products])
 
   const productsTotalPrice = useMemo(() => {
     return products.reduce((acc, currentProduct) => {

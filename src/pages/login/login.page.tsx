@@ -9,9 +9,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup
 } from 'firebase/auth'
-import { UserContext } from '../../contexts/user.context'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 // Components
 import Header from '../../components/header/header.component'
@@ -46,7 +46,9 @@ const LoginPage = () => {
   } = useForm<LoginForm>()
 
   const [isLoading, setIsLoading] = useState(false)
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
   const navigate = useNavigate()
 
   useEffect(() => {

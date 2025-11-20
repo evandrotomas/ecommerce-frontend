@@ -2,14 +2,14 @@ import { FiLogIn } from 'react-icons/fi'
 import validator from 'validator'
 import { useForm } from 'react-hook-form'
 import { addDoc, collection } from 'firebase/firestore'
-import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../contexts/user.context'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   AuthError,
   AuthErrorCodes,
   createUserWithEmailAndPassword
 } from 'firebase/auth'
+import { useSelector } from 'react-redux'
 
 // Components
 import CustomButton from '../../components/custom-button/custom-button.component'
@@ -48,7 +48,9 @@ const SignUpPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const watchPassword = watch('password')
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
   const navigate = useNavigate()
 
   useEffect(() => {

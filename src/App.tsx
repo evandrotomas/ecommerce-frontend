@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { FunctionComponent, useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // Pages
 import HomePage from './pages/home/home.page'
@@ -14,7 +14,8 @@ import CategoryDetailsPage from './pages/category-details/category-details.page'
 // Utilities
 import { auth, db } from './config/firebase.config'
 import { userConverter } from './converters/firestore.converters'
-import { loginUser, logout } from './store/reducers/user/user.actions'
+import { loginUser, logoutUser } from './store/reducers/user/user.actions'
+import { useAppSelector } from './hooks/redux.hooks'
 
 // Components
 import Loading from './components/loading/loading.component'
@@ -26,15 +27,15 @@ import PaymentConfirmationPage from './pages/payment-confirmation/payment-confir
 const App: FunctionComponent = () => {
   const [isInitializing, setIsInitializing] = useState(true)
   const dispatch = useDispatch()
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       const isSigningOut = isAuthenticated && !user
       if (isSigningOut) {
-        dispatch(logout())
+        dispatch(logoutUser())
         return setIsInitializing(false)
       }
 

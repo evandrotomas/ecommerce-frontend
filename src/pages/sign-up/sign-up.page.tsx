@@ -9,7 +9,6 @@ import {
   AuthErrorCodes,
   createUserWithEmailAndPassword
 } from 'firebase/auth'
-import { useSelector } from 'react-redux'
 
 // Components
 import CustomButton from '../../components/custom-button/custom-button.component'
@@ -28,6 +27,7 @@ import {
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 interface SignUpForm {
   firstName: string
@@ -48,8 +48,8 @@ const SignUpPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const watchPassword = watch('password')
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
   const navigate = useNavigate()
 

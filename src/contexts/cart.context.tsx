@@ -103,7 +103,6 @@ const CartContextProvider: FunctionComponent<{ children: React.ReactNode }> = ({
     }
 
     // se não -> adicionar
-
     setProducts((prevState) => [...prevState, { ...product, quantity: 1 }])
   }
 

@@ -1,10 +1,13 @@
-import { FunctionComponent, useContext } from 'react'
+import { FunctionComponent } from 'react'
 import { BsCartCheck } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 
 // Utilities
-import { CartContext } from '../../contexts/cart.context'
 import { useAppSelector } from '../../hooks/redux.hooks'
+import {
+  selectProductsCount,
+  selectProductsTotalPrice
+} from '../../store/reducers/cart/cart.selectors'
 
 // Components
 import CustomButton from '../custom-button/custom-button.component'
@@ -23,7 +26,9 @@ import { toggleCart } from '../../store/reducers/cart/cart.actions'
 
 const Cart: FunctionComponent = () => {
   const { isVisible, products } = useAppSelector((state) => state.cartReducer)
-  const { productsTotalPrice, productsCount } = useContext(CartContext)
+
+  const productsTotalPrice = useAppSelector(selectProductsTotalPrice)
+  const productsCount = useAppSelector(selectProductsCount)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -43,12 +48,10 @@ const Cart: FunctionComponent = () => {
       <CartEscapeArea onClick={handleEscapeAreaClick} />
       <CartContent>
         <CartTitle>Seu Carrinho</CartTitle>
-
         {/* produtos */}
         {products.map((product) => (
           <CartItem key={product.id} product={product} />
         ))}
-
         {productsCount > 0 && (
           <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
         )}
@@ -61,7 +64,6 @@ const Cart: FunctionComponent = () => {
             Ir para Checkout
           </CustomButton>
         )}
-
         {productsCount === 0 && (
           <p style={{ textAlign: 'center', marginTop: '50px' }}>
             Seu carrinho está vázio!

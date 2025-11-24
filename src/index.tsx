@@ -4,19 +4,19 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import CategoryContextProvider from './contexts/category.context'
-import CartContextProvider from './contexts/cart.context'
 import { Provider } from 'react-redux'
-import store from './store/store'
+import { store, persistedStore } from './store/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CategoryContextProvider>
-        <CartContextProvider>
+      <PersistGate persistor={persistedStore}>
+        <CategoryContextProvider>
           <App />
-        </CartContextProvider>
-      </CategoryContextProvider>
+        </CategoryContextProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 )

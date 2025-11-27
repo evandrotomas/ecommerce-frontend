@@ -1,5 +1,6 @@
 import Header from './header.component'
 import { renderWithRedux } from '../../helpers/test.helpers'
+import CartProduct from '../../types/cart.typs'
 
 describe('Header', () => {
   it('should show sign out button if user is authenticated', () => {
@@ -17,5 +18,34 @@ describe('Header', () => {
 
     getByText('Login')
     getByText('Criar conta')
+  })
+
+  it('should show correct cart products count', () => {
+    const products: CartProduct[] = [
+      {
+        id: '1',
+        imageUrl: 'image_url',
+        name: 'Boné',
+        price: 100,
+        quantity: 10
+      },
+      {
+        id: '2',
+        imageUrl: 'image_url',
+        name: 'Jaqueta',
+        price: 100,
+        quantity: 12
+      }
+    ]
+
+    const { getByText } = renderWithRedux(<Header />, {
+      preloadedState: {
+        cartReducer: {
+          products
+        }
+      } as any
+    })
+
+    getByText('22')
   })
 })

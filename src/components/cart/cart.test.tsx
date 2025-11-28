@@ -26,6 +26,7 @@ describe('Cart', () => {
     getByText('Total: R$ 200')
     getByText(/ir para o checkout/i)
   })
+
   it('should not show checkout button and should show an empty message if cart is empty', () => {
     const { getByText, queryByText } = renderWithRedux(<Cart />, {
       preloadedState: {
@@ -61,5 +62,29 @@ describe('Cart', () => {
     userEvent.click(increaseButton)
 
     await findByText('5')
+  })
+
+  it('should decrease product quantity on decrease click', async () => {
+    const { getByLabelText, findByText } = renderWithRedux(<Cart />, {
+      preloadedState: {
+        cartReducer: {
+          products: [
+            {
+              id: '1',
+              imageUrl: 'image_url',
+              name: 'Boné',
+              price: 100,
+              quantity: 4
+            }
+          ]
+        }
+      } as any
+    })
+
+    const decreaseButton = getByLabelText(/decrease quantity of boné/i)
+
+    userEvent.click(decreaseButton)
+
+    await findByText('3')
   })
 })

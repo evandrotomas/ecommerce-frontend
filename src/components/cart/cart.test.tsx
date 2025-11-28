@@ -41,7 +41,7 @@ describe('Cart', () => {
   })
 
   it('should increase product quantity on increase click', async () => {
-    const { getByLabelText, findByText } = renderWithRedux(<Cart />, {
+    const { getByLabelText, getByText } = renderWithRedux(<Cart />, {
       preloadedState: {
         cartReducer: {
           products: [
@@ -59,13 +59,14 @@ describe('Cart', () => {
 
     const increaseButton = getByLabelText(/increase quantity of boné/i)
 
-    userEvent.click(increaseButton)
+    await userEvent.click(increaseButton)
 
-    await findByText('5')
+    getByText('5')
+    getByText('Total: R$ 500')
   })
 
   it('should decrease product quantity on decrease click', async () => {
-    const { getByLabelText, findByText } = renderWithRedux(<Cart />, {
+    const { getByLabelText, getByText } = renderWithRedux(<Cart />, {
       preloadedState: {
         cartReducer: {
           products: [
@@ -83,9 +84,10 @@ describe('Cart', () => {
 
     const decreaseButton = getByLabelText(/decrease quantity of boné/i)
 
-    userEvent.click(decreaseButton)
+    await userEvent.click(decreaseButton)
 
-    await findByText('3')
+    getByText('3')
+    getByText('Total: R$ 300')
   })
 
   it('should remove product on remove click', async () => {

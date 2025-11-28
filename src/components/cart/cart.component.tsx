@@ -61,12 +61,12 @@ const Cart: FunctionComponent = () => {
             startIcon={<BsCartCheck />}
             onClick={handleCheckoutClick}
           >
-            Ir para Checkout
+            Ir para o Checkout
           </CustomButton>
         )}
         {productsCount === 0 && (
           <p style={{ textAlign: 'center', marginTop: '50px' }}>
-            Seu carrinho está vázio!
+            Seu carrinho está vazio!
           </p>
         )}
       </CartContent>
